@@ -15,7 +15,7 @@ public class CatController {
 
     @GetMapping("/hello-world")
     public String sayHelloWorld(){
-        return "Hello World";
+        return "Hello World - advanced logic";
     }
 
     @GetMapping("/say-world")
