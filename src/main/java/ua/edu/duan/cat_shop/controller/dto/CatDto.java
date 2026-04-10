@@ -7,8 +7,7 @@ import lombok.Setter;
 @Setter
 public class CatDto {
 
-    private int id;
+    private String id;
     private String name;
-    private int age;
 
 }

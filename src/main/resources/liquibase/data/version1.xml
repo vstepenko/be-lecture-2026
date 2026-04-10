@@ -26,4 +26,16 @@
         </insert>
     </changeSet>
 
+
+    <changeSet id="create_cat" author="vstepenko">
+        <createTable tableName="cat">
+            <column name="id" type="varchar">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar"/>
+            <column name="weight" type="varchar"/>
+            <column name="type" type="varchar"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

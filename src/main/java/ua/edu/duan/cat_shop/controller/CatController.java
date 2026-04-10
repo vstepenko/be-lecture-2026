@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.edu.duan.cat_shop.controller.dto.CatDto;
-import ua.edu.duan.cat_shop.dao.entity.CatEntity;
-import ua.edu.duan.cat_shop.dao.repository.CatRepository;
+import ua.edu.duan.cat_shop.service.CatService;
 
 import java.util.List;
 
@@ -21,18 +20,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CatController {
 
+    private final CatService catService;
 
-    private final CatRepository catRepository;
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    @GetMapping("/hello-world")
-    public String sayHelloWorld() throws JsonProcessingException {
-
-
-        List<CatEntity> catEntityList =  catRepository.findAll();
-
-        return objectMapper.writeValueAsString(catEntityList);
-
+    @GetMapping("/cats")
+    public List<CatDto> getAllCats()  {
+        return catService.getAllCats();
     }
 
     @GetMapping("/say-world")
@@ -46,9 +38,7 @@ public class CatController {
     }
 
     @PostMapping("/cat")
-    public String addCat(@RequestBody CatDto catDto) {
-
-        return catDto.getName() + " is added to the database";
-
+    public void  addCat(@RequestBody CatDto catDto) {
+       catService.addCat(catDto);
     }
 }
