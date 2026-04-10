@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="create_table_cat" author="vstepenko">
+        <createTable tableName="cat_type">
+            <column name="type" type="varchar">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_photo_column_to_cat_type" author="vstepenko">
+        <addColumn tableName="cat_type">
+            <column name="photo" type="varchar"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="add_first_value" author="vstepenko">
+        <insert tableName="cat_type">
+            <column name="type" value="siamskii"/>
+            <column name="description" value="bla bla bla"/>
+            <column name="photo" value="url to photo"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
