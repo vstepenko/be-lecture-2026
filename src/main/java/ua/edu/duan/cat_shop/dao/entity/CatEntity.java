@@ -19,6 +19,7 @@ public class CatEntity {
     @Column(name = "name")
     private String catName;
 
+    @Column(name = "weight")
     private String weight;
 
     private String type;

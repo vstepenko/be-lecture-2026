@@ -3,9 +3,11 @@ package ua.edu.duan.cat_shop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,18 +29,29 @@ public class CatController {
         return catService.getAllCats();
     }
 
-    @GetMapping("/say-world")
-    public String sayWord(@RequestParam String world){
-        return "Yes? of course - " + world;
+    @GetMapping("/cat")
+    public CatDto getCatById(@RequestParam String catId)  {
+        return catService.getCatById(catId);
     }
 
-    @GetMapping("/say-world2/{world}/v1")
-    public String sayWord2(@PathVariable String world){
-        return "Yes? of course - " + world;
+    @GetMapping("/cat-by-type")
+    public List<CatDto> getCatByType(@RequestParam String type)  {
+        return catService.getCatByType(type);
     }
 
     @PostMapping("/cat")
-    public void  addCat(@RequestBody CatDto catDto) {
+    public void addCat(@RequestBody CatDto catDto) {
        catService.addCat(catDto);
+    }
+
+    @PutMapping("/cat")
+    public String updateCat(@RequestParam(required = true) String catId, @RequestBody CatDto catDto) {
+        return catService.editCat(catId, catDto);
+
+    }
+
+    @DeleteMapping("/cat")
+    public String deleteCat(@RequestParam String catId) {
+        return catService.deleteCat(catId);
     }
 }

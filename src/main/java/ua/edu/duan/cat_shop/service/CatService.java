@@ -1,5 +1,6 @@
 package ua.edu.duan.cat_shop.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.edu.duan.cat_shop.controller.dto.CatDto;
@@ -30,10 +31,39 @@ public class CatService {
         return catEntityList.stream().map(this::toCatDto).toList();
     }
 
+    public CatDto getCatById(String id) {
+        return catRepository.findById(id).map(this::toCatDto)
+                .orElseThrow(() -> new RuntimeException("Cat not found"));
+    }
+
+    public List<CatDto> getCatByType(String type) {
+        return catRepository.findByType(type)
+                .stream()
+                .map(this::toCatDto)
+                .toList();
+    }
 
     public void addCat(CatDto catDto) {
         CatEntity catEntity = toCatEntity(catDto);
         catRepository.save(catEntity);
+    }
+
+    @Transactional
+    public String editCat(String id, CatDto catDto) {
+        return catRepository.findById(id)
+                .map(catEntity -> {
+                    catEntity.setCatName(catDto.getName());
+                    return "Cat edited successfully";
+                })
+                .orElse("Cat not found");
+    }
+
+    public String deleteCat(String id){
+        if(catRepository.existsById(id)) {
+            catRepository.deleteById(id);
+            return "Cat deleted successfully";
+        }
+        return "Cat not found";
     }
 
     private CatDto toCatDto(CatEntity catEntity) {

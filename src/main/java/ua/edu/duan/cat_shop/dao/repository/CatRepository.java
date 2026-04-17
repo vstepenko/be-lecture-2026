@@ -9,4 +9,9 @@ public interface CatRepository extends JpaRepository<CatEntity, String> {
 
     List<CatEntity> findByCatName(String name);
 
+   /* @Query("SELECT ent FROM CatEntity ent WHERE ent.type =:type" )
+    List<CatEntity> findBySomeAtributes(String type);*/
+
+    List<CatEntity> findByType(String type);
+
 }
